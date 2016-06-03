@@ -1,8 +1,10 @@
 //win.showDevTools();
 const exec = require('child_process').exec;
 
+$(".txt-search").focus();
+
 function quickill() {
-//	location = "#second-page";
+	$('.process-list').empty();
 	var processToFind = $(".txt-search").val();
 	exec('tasklist | find /I "' + processToFind + '"', (err, sto, ste) => {
 		if (err) {
@@ -45,5 +47,5 @@ function up() {
 
 function logArrayElements(el, index, array) {
 	var fileName = el.match(/[^\\]*\.(\w+)/g);
-	$('.process-list').append(`<input type="checkbox" value="${fileName}">${el}<br>`);
+	$('.process-list').append(`<input type="checkbox" value="${fileName}">${fileName}<br>`);
 }

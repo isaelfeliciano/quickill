@@ -1,4 +1,11 @@
 {
 	"name": "QuicKill",
-	"main": "index.html"
+	"main": "index.html",
+	"description": "Kill OS process in a quick and simple way",
+	"version": "0.0.1",
+	"window": {
+		"tile": "QuicKill",
+		"resizable": false,
+		"fullscreen": false
+	}
 }
