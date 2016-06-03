@@ -5,6 +5,7 @@
 	"version": "0.0.1",
 	"window": {
 		"tile": "QuicKill",
+		"icon": "favicon.png",
 		"resizable": false,
 		"fullscreen": false
 	}
