@@ -6,15 +6,18 @@
 		<link type="text/css" rel="stylesheet" href="style.css">
 	</head>
 	<body class="center-align center-text">
-		<h2>QuicKill</h2>
 		<div id="first-page">
+		<h2>QuicKill</h2>
 			<input class="txt-search center-align" type="text" name="txt-search">
+			<button class="bt-quickill" name="bt-quickill" onclick="quickill()">QuicKill</button>
 			<button class="bt-search" name="bt-search" onclick="searchProcess()">Search</button>
 		</div>
-		<div id="second-page" class="center-align center-text notVisible">
-			<ul>
-				<li>Hola</li>
-			</ul>
+		<div id="second-page" class="center-align center-text">
+			<button class="bt-up" name="bt-up" onclick="up()">UP</button>
+			<div class="list-layout process-list">
+			</div>
+			<button name="bt-killall" onclick="quickill()">Kill 'em All</button>
+			<button name="bt-kill-selected" onclick="killSelected()">Kill Selected</button>
 		</div>
 		<script src="jquery.js"></script>
 		<script src="app.js"></script>

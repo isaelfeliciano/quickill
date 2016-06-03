@@ -40,6 +40,7 @@ body, html {
 	overflow: hidden;
 }
 h2 {
+	margin-top: 0.5em;
 	font-size: 2em;
 	font-family: mononoki;
 	color: #FFF;
@@ -58,7 +59,7 @@ h2 {
 	
 	font-size: 2em;
 }
-.bt-search {
+button {
 	background: #A34142;
 	color: #FFF;
 	font-size: 1.8em;
@@ -67,13 +68,29 @@ h2 {
 	border-radius: 5px;
 	cursor: pointer;
 }
-	.bt-search:focus {
+	button:focus {
 		outline: 0;
 	}
-	.bt-search:hover {
+	button:hover {
 		opacity: 0.9;
 	}
 
 #second-page {
 	height: 100%;
+	width: 100%;
+}
+.bt-up {
+	position: relative;
+	margin-left: 80%;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.list-layout {
+	height: 60%;
+	width: 90%;
+}
+.process-list {
+	color: #FFF;
+	font-size: 1.5em;
 }
