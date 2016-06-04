@@ -1,9 +1,18 @@
 //win.showDevTools();
+var os = require('os');
 const exec = require('child_process').exec;
+
+if (os.platform() == 'linux') {
+	$('button[name="bt-quickill"]').attr('onclick', 'linuxQuickill()');
+	$('button[name="bt-search"]').attr('onclick', 'linuxSearchProcess()');
+	$('button[name="bt-killall"]').attr('onclick', 'linuxQuickill()');
+	$('button[name="bt-kill-selected"]').attr('onclick', 'linuxKillSelected()');
+}
 
 $(".txt-search").focus();
 
-function quickill() {
+
+function microsoftQuickill() {
 	$('.process-list').empty();
 	var processToFind = $(".txt-search").val();
 	exec('tasklist | find /I "' + processToFind + '"', (err, sto, ste) => {
@@ -24,7 +33,7 @@ function quickill() {
 	});
 }
 
-function searchProcess() {
+function microsoftSearchProcess() {
 	location = "#second-page";
 	$('.process-list').empty();
 	var processToFind = $(".txt-search").val();
@@ -37,7 +46,7 @@ function searchProcess() {
 		sto.pop();
 		console.log(`sto: ${sto.length}`);
 		var processToKill = sto[0].match(/[^\\]*\.(\w+)/g);
-		sto.forEach(logArrayElements);
+		sto.forEach(microsoftLogArrayElements);
 	});
 }
 
@@ -45,7 +54,7 @@ function up() {
 	location = "#first-page";
 }
 
-function logArrayElements(el, index, array) {
+function microsoftLogArrayElements(el, index, array) {
 	var fileName = el.match(/[^\\]*\.(\w+)/g);
 	$('.process-list').append(`<input type="checkbox" value="${fileName}">${fileName}<br>`);
 }
