@@ -11,6 +11,9 @@ if (os.platform() == 'linux') {
 
 $(".txt-search").focus();
 
+function up() {
+	location = "#first-page";
+}
 
 function microsoftQuickill() {
 	$('.process-list').empty();
@@ -50,11 +53,63 @@ function microsoftSearchProcess() {
 	});
 }
 
-function up() {
-	location = "#first-page";
-}
 
 function microsoftLogArrayElements(el, index, array) {
 	var fileName = el.match(/[^\\]*\.(\w+)/g);
 	$('.process-list').append(`<input type="checkbox" value="${fileName}">${fileName}<br>`);
+}
+
+function linuxQuickill() {
+	$('.process-list').empty();
+	var processToFind = $('.txt-search').val();
+	exec(`pkill -e ${processToFind}`, (err, sto, ste) => {
+		if (err) {
+			console.log(`Error QuicKilling ${err}`);
+			return;
+		}
+		sto.split("\n");
+		console.log(`You killed: ${sto}`);
+	});
+}
+
+function linuxSearchProcess() {
+	location = '#second-page';
+	$('.process-list').empty();
+	var processToFind = $(".txt-search").val();
+	exec(`ps -A | grep ${processToFind}`, (err, sto, ste) => {
+		if (err) {
+			console.log(`Error Searching: ${err}`);
+			return;
+		}
+		sto = sto.split("\n");
+		// sto[0] = sto[0].replace(/\s+/g, "");
+		// var regexResult = sto[0].match(/^(\d+)/g);
+		sto.pop();
+		sto.forEach(linuxLogArrayElements);
+	});
+}
+
+function linuxLogArrayElements(el, index, array) {
+	var uid = el.replace(/\s+/g, "");
+	uid = uid.match(/^(\d+)/g);
+	$('.process-list').append(`<input type="checkbox" value="${uid}">${el}<br>`)
+}
+
+function linuxKillSelected() {
+	var inputChecked = new Array;
+	var i = 0;
+	$('input:checked').each(function() {
+		inputChecked.push($(this).val());
+		i++;
+		if (i == $('input:checked').length) {
+			inputChecked = inputChecked.toString().replace(",", " ");
+			exec(`kill ${inputChecked}`, (err, sto, ste) => {
+				if(err) {
+					console.log(`Error Killing Selected: ${err}`);
+					return
+				}
+				console.log('Killed Selected');
+			});
+		}
+	});
 }
