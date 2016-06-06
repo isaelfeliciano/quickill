@@ -59,6 +59,27 @@ function microsoftLogArrayElements(el, index, array) {
 	$('.process-list').append(`<input type="checkbox" value="${fileName}">${fileName}<br>`);
 }
 
+function microsoftKillSelected() {
+	var inputChecked = new Array;
+	var i = 0;
+	var re = /,/gi; //For string replace
+	$('input:checked').each(function() {
+		inputChecked.push($(this).val());
+		i++;
+		if (i == $('input:checked').length) {
+			inputChecked = inputChecked.toString().replace(re, " /im ");
+			console.log(inputChecked);
+			exec(`taskkill /f /im ${inputChecked}`, (err, sto, ste) => {
+				if (err){
+					console.log(`Error Killing Selected: ${err}`);
+					return
+				}
+				console.log('Killed Selected');
+			});
+		}
+	});
+}
+
 function linuxQuickill() {
 	$('.process-list').empty();
 	var processToFind = $('.txt-search').val();
@@ -82,8 +103,6 @@ function linuxSearchProcess() {
 			return;
 		}
 		sto = sto.split("\n");
-		// sto[0] = sto[0].replace(/\s+/g, "");
-		// var regexResult = sto[0].match(/^(\d+)/g);
 		sto.pop();
 		sto.forEach(linuxLogArrayElements);
 	});
