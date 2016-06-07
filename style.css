@@ -27,7 +27,13 @@ Background #f45844
   border-radius: 5px;
 }
 .notVisible{
-  visibility: hidden;
+/*  visibility: hidden;*/
+	opacity: 0;
+	-webkit-transition:opacity 1s linear;
+}
+.visible{
+	visibility: visible;
+	opacity: 1;
 }
 
 
@@ -99,3 +105,19 @@ button {
 	text-align: left;
 	margin-left: 1em;
 }
+
+/*Flashmessge*/
+.flashmessage{
+  position: absolute;
+  bottom: 4em;
+  width: 80%;
+  
+  background: #fff;
+  border-top: 0.4em solid #04193F;
+
+  z-index: 99999;
+}
+.flashmessage>p{
+  padding: 1em;
+}
+/*Flashmessge*/

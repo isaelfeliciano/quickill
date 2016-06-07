@@ -20,18 +20,18 @@ function microsoftQuickill() {
 	var processToFind = $(".txt-search").val();
 	exec('tasklist | find /I "' + processToFind + '"', (err, sto, ste) => {
 		if (err) {
-			console.log(`exec error: ${error}`);
+			flashMessage(`exec error: ${error}`);
 			return;
 		}
 		sto = sto.split("\n");
-		console.log(`sto: ${sto.length}`);
+		flashMessage(`sto: ${sto.length}`);
 		var processToKill = sto[0].match(/[^\\]*\.(\w+)/g);
 		exec(`taskkill /f /im ${processToKill}`, function(err, sto, ste) {
 			if (err){
-				console.log(`Error killing process: ${err}`);
+				flashMessage(`Error killing process: ${err}`);
 				return
 			}
-			console.log(`Process killed, ${sto}`);
+			flashMessage(`Process killed, ${sto}`);
 		});
 	});
 }
@@ -42,12 +42,12 @@ function microsoftSearchProcess() {
 	var processToFind = $(".txt-search").val();
 	exec('tasklist | find /I "' + processToFind + '"', (err, sto, ste) => {
 		if (err) {
-			console.log(`exec error: ${error}`);
+			flashMessage(`exec error: ${error}`);
 			return;
 		}
 		sto = sto.split("\n");
 		sto.pop();
-		console.log(`sto: ${sto.length}`);
+		flashMessage(`sto: ${sto.length}`);
 		var processToKill = sto[0].match(/[^\\]*\.(\w+)/g);
 		sto.forEach(microsoftLogArrayElements);
 	});
@@ -68,13 +68,13 @@ function microsoftKillSelected() {
 		i++;
 		if (i == $('input:checked').length) {
 			inputChecked = inputChecked.toString().replace(re, " /im ");
-			console.log(inputChecked);
+			flashMessage(inputChecked);
 			exec(`taskkill /f /im ${inputChecked}`, (err, sto, ste) => {
 				if (err){
-					console.log(`Error Killing Selected: ${err}`);
+					flashMessage(`Error Killing Selected: ${err}`);
 					return
 				}
-				console.log('Killed Selected');
+				flashMessage(`Kill Selected: ${sto}`);
 			});
 		}
 	});
@@ -85,11 +85,11 @@ function linuxQuickill() {
 	var processToFind = $('.txt-search').val();
 	exec(`pkill -e ${processToFind}`, (err, sto, ste) => {
 		if (err) {
-			console.log(`Error QuicKilling ${err}`);
+			flashMessage(`Error QuicKilling ${err}`);
 			return;
 		}
 		sto.split("\n");
-		console.log(`You killed: ${sto}`);
+		flashMessage(`You killed: ${sto}`);
 	});
 }
 
@@ -99,7 +99,7 @@ function linuxSearchProcess() {
 	var processToFind = $(".txt-search").val();
 	exec(`ps -A | grep ${processToFind}`, (err, sto, ste) => {
 		if (err) {
-			console.log(`Error Searching: ${err}`);
+			flashMessage(`Error Searching: ${err}`);
 			return;
 		}
 		sto = sto.split("\n");
@@ -124,11 +124,23 @@ function linuxKillSelected() {
 			inputChecked = inputChecked.toString().replace(",", " ");
 			exec(`kill ${inputChecked}`, (err, sto, ste) => {
 				if(err) {
-					console.log(`Error Killing Selected: ${err}`);
+					flashMessage(`Error Killing Selected: ${err}`);
 					return
 				}
-				console.log('Killed Selected');
+				flashMessage('Killed Selected');
 			});
 		}
 	});
 }
+
+// Flash Message
+	function flashMessage(msg){
+		if(hideFlashMessage)
+			clearTimeout(hideFlashMessage);
+		$('.flashmessage').removeClass('notVisible').addClass('visible')
+		.html('<p>'+msg+'</p>');
+		var hideFlashMessage = setTimeout(function(){
+			$('.flashmessage').removeClass('visible').addClass('notVisible');
+		}, 3000);
+	}
+	// Flash Message
