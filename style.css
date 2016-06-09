@@ -26,12 +26,12 @@ Background #f45844
 .box-radius{
   border-radius: 5px;
 }
-.notVisible{
+.not-visible{
 /*  visibility: hidden;*/
 	opacity: 0;
 	-webkit-transition:opacity 1s linear;
 }
-.visible{
+.is-visible{
 	visibility: visible;
 	opacity: 1;
 }

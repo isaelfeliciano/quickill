@@ -137,10 +137,10 @@ function linuxKillSelected() {
 	function flashMessage(msg){
 		if(hideFlashMessage)
 			clearTimeout(hideFlashMessage);
-		$('.flashmessage').removeClass('notVisible').addClass('visible')
+		$('.flashmessage').removeClass('not-visible').addClass('is-visible')
 		.html('<p>'+msg+'</p>');
 		var hideFlashMessage = setTimeout(function(){
-			$('.flashmessage').removeClass('visible').addClass('notVisible');
+			$('.flashmessage').removeClass('is-visible').addClass('not-visible');
 		}, 3000);
 	}
 	// Flash Message
